@@ -1,0 +1,21 @@
+---
+- name: Web servers
+  hosts: webservers
+  become: yes
+  remote_user: root
+
+  tasks:
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start or restart NGINX
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Copy HTML files
+      copy:
+        src: ../www/index.html
+        dest: /var/www/html/index.html
